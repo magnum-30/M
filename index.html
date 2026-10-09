@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a0d16">
+  <title>ساحة النخبة — مبارزة البطاقات</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ساحة النخبة">
+      <span class="brand-mark">✦</span><span><b>ساحة النخبة</b><small>مبارزة البطاقات</small></span>
+    </a>
+    <div class="top-actions"><span class="local-pill"><i></i> لعب محلي</span><button id="soundToggle" class="icon-button" title="تشغيل أو كتم الصوت" aria-label="الصوت">♫</button></div>
+  </header>
+
+  <main id="app">
+    <section id="homeScreen" class="screen home-screen">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> مبارزة لاعبين · جهاز واحد</div>
+        <h1>العقل سلاحك،<br><em>والنصر قرارك.</em></h1>
+        <p>اجمع قوتك، العب أوراقك في الوقت المناسب، واهزم منافسك في مبارزة تكتيكية بالأدوار.</p>
+        <div class="hero-buttons"><button id="startBtn" class="primary-button">ابدأ المبارزة <span>←</span></button><button id="rulesBtn" class="secondary-button">كيف تلعب؟</button></div>
+        <div class="feature-row"><span>♜ <b>استراتيجية</b></span><span>◈ <b>بطاقات قدرات</b></span><span>⌁ <b>دون حسابات</b></span></div>
+      </div>
+      <div class="hero-art" aria-label="تصميم زخرفي لمبارزة البطاقات">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="hero-sigil">✦</div>
+        <div class="floating-card card-back"><div class="back-pattern">✧<span>✦</span>✧</div><small>ELITE DUEL</small></div>
+        <div class="floating-card showcase-card"><div class="showcase-icon">⚔</div><div class="showcase-rank">بطاقة أسطورية</div><h3>حارس الشفق</h3><div class="showcase-stats"><span>⚔ 7</span><span>⬟ 5</span></div></div>
+        <div class="art-caption"><span class="pulse-dot"></span> جهّز تشكيلتك وابدأ</div>
+      </div>
+      <div class="home-footer"><span>الإصدار 1.0</span><span>تُحفظ المباراة مؤقتًا في جلسة المتصفح</span></div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen hidden">
+      <div class="game-header">
+        <button id="backHomeBtn" class="text-button">← القائمة الرئيسية</button>
+        <div class="match-title"><span class="live-dot"></span> مباراة محلية <small id="roundLabel">الجولة 1</small></div>
+        <button id="restartBtn" class="text-button">↻ إعادة المباراة</button>
+      </div>
+      <div class="duel-board">
+        <section id="opponentPanel" class="player-panel opponent-panel">
+          <div class="player-heading"><div class="avatar avatar-red">٢</div><div class="player-name"><b>اللاعب الثاني</b><small id="p2Status">ينتظر دوره</small></div><span class="turn-badge hidden" id="p2Turn">دوره الآن</span></div>
+          <div class="health-line"><span>الصحة</span><b id="p2HealthText">30 / 30</b></div><div class="health-track"><div id="p2HealthBar" class="health-fill red-fill" style="width:100%"></div></div>
+          <div class="player-meta"><span>⚡ الطاقة <b id="p2Energy">1/1</b></span><span>▤ أوراق مخفية <b id="p2DeckCount">12</b></span></div>
+          <div class="opponent-hand" id="opponentHand" aria-label="بطاقات اللاعب الثاني"><span class="mini-back"></span><span class="mini-back"></span><span class="mini-back"></span><span class="mini-back"></span></div>
+        </section>
+
+        <div class="battle-divider"><span>VS</span><i></i></div>
+
+        <section id="playerPanel" class="player-panel current-panel">
+          <div class="player-heading"><div class="avatar avatar-blue">١</div><div class="player-name"><b>اللاعب الأول</b><small id="p1Status">دورك الحالي</small></div><span class="turn-badge" id="p1Turn">دوره الآن</span></div>
+          <div class="health-line"><span>الصحة</span><b id="p1HealthText">30 / 30</b></div><div class="health-track"><div id="p1HealthBar" class="health-fill blue-fill" style="width:100%"></div></div>
+          <div class="player-meta"><span>⚡ الطاقة <b id="p1Energy">1/1</b></span><span>▤ أوراق في اليد <b id="p1HandCount">5</b></span></div>
+          <div class="hand-area"><div class="hand-heading"><span>يدك الحالية</span><small>اختر بطاقة للعبها</small></div><div id="playerHand" class="card-hand"></div></div>
+        </section>
+      </div>
+      <aside class="battle-log"><div class="log-title">⌁ <b>سجل المبارزة</b></div><div id="logEntries" class="log-entries"><p>بدأت المبارزة. حظًا موفقًا!</p></div></aside>
+      <div class="game-controls"><div class="turn-info"><span class="turn-icon">♜</span><div><b id="turnInfoTitle">دور اللاعب الأول</b><small id="turnInfoText">العب بطاقة أو أنهِ دورك.</small></div></div><button id="endTurnBtn" class="primary-button">إنهاء الدور <span>←</span></button></div>
+    </section>
+
+    <section id="handoffScreen" class="screen handoff-screen hidden">
+      <div class="handoff-emblem">✦</div><div class="eyebrow">تبديل اللاعبين</div><h2>مرّر الجهاز إلى<br><em id="handoffName">اللاعب الثاني</em></h2><p>تأكد أن اللاعب التالي لا يرى أوراق خصمه، ثم اضغط للمتابعة.</p><button id="continueBtn" class="primary-button">أنا مستعد <span>←</span></button><small class="privacy-note">◈ أوراق اللاعب السابق مخفية</small>
+    </section>
+
+    <section id="resultScreen" class="screen result-screen hidden">
+      <div class="result-crown">♛</div><div class="eyebrow">انتهت المبارزة</div><h2 id="resultTitle">انتصار مستحق!</h2><p id="resultText">أحسنت اللعب.</p><div class="result-stats"><div><small>الجولات</small><b id="resultRounds">1</b></div><div><small>الفائز</small><b id="resultWinner">اللاعب الأول</b></div></div><button id="playAgainBtn" class="primary-button">مبارزة جديدة <span>←</span></button><button id="resultHomeBtn" class="secondary-button">العودة للقائمة</button>
+    </section>
+  </main>
+
+  <div id="rulesModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+    <div class="modal-card"><button id="closeRulesBtn" class="modal-close" aria-label="إغلاق">×</button><div class="eyebrow">دليل سريع</div><h2 id="rulesTitle">كيف تلعب؟</h2>
+      <ol class="rules-list"><li><b>ابدأ دورك:</b> تحصل على طاقة تزداد مع الجولات وتسحب بطاقة.</li><li><b>العب البطاقات:</b> الهجوم يضر الخصم، والدفاع يمنحك درعًا، والشفاء يعيد الصحة.</li><li><b>انتبه للطاقة:</b> تكلفة البطاقة ظاهرة عليها؛ لا يمكنك لعب بطاقة أغلى من طاقتك.</li><li><b>مرّر الجهاز:</b> عند إنهاء الدور تظهر شاشة تغطي البطاقات حتى يتجهز اللاعب الآخر.</li><li><b>الفوز:</b> اخفض صحة الخصم إلى الصفر. يمكنك إعادة المباراة في أي وقت.</li></ol>
+      <p class="modal-note">تعمل اللعبة محليًا ولا ترسل نتائجك إلى أي خادم. يتم حفظ الحالة مؤقتًا في جلسة علامة التبويب.</p><button id="rulesOkBtn" class="primary-button">فهمت، لنبدأ</button>
+    </div>
+  </div>
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script src="game.js"></script>
+</body>
+</html>
