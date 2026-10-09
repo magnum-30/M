@@ -3,701 +3,493 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#090d18">
-<title>ساحة النخبة | مبارزة البطاقات</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#070b18">
+<title>ساحة النخبة | Anime Duel</title>
 <style>
-:root {
-  --bg:#090d18; --panel:#121a2a; --line:#2b3850;
-  --text:#f4f6ff; --muted:#929fb7; --gold:#edc47c;
-  --blue:#70c6ff; --red:#ff8495; --green:#70dfb1;
+:root{
+  --bg:#070b18;--panel:#10182b;--blue:#48baff;
+  --gold:#ffc75e;--red:#ff526b;--green:#49e2ac;
+  --text:#f4f7ff;--muted:#91a0bd;
 }
-* { box-sizing:border-box }
-body {
-  margin:0; min-height:100vh; color:var(--text);
-  font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;
-  background:radial-gradient(ellipse at 50% 0,#1b2a45,transparent 55%),var(--bg);
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;color:var(--text);
+ background:radial-gradient(ellipse at top,#172747,#070b18 60%,#03050c);
+ font-family:Tahoma,Arial,sans-serif
 }
-button { font:inherit; cursor:pointer }
-button:disabled { cursor:not-allowed; opacity:.45 }
-.hidden { display:none!important }
-button:focus-visible { outline:2px solid var(--gold); outline-offset:3px }
-.topbar {
-  max-width:1200px; margin:auto; padding:18px 22px;
-  display:flex; justify-content:space-between; align-items:center;
-  border-bottom:1px solid #ffffff12;
+button{font:inherit;cursor:pointer}
+button:disabled{opacity:.4;cursor:not-allowed}
+.top{
+ position:sticky;top:0;z-index:5;background:#080e1fee;
+ backdrop-filter:blur(12px);border-bottom:1px solid #273957;
+ padding:14px 18px;display:flex;align-items:center;
+ justify-content:space-between;gap:12px;flex-wrap:wrap
 }
-.brand { display:flex; align-items:center; gap:12px }
-.brand-icon {
-  width:43px;height:43px;display:grid;place-items:center;
-  border:1px solid #edc47c55;border-radius:14px;
-  color:var(--gold);font-size:25px;background:#1c2434;
+.logo{font-size:21px;font-weight:900;color:var(--gold)}
+.logo small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.pill{background:#121d32;border:1px solid #344565;border-radius:30px;padding:9px 14px;font-size:12px}
+.wrap{max-width:1200px;margin:auto;padding:16px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.btn{
+ border:1px solid #3b557b;border-radius:11px;padding:11px 14px;
+ color:white;background:linear-gradient(135deg,#172b4a,#101729);
+ transition:.2s
 }
-.brand b,.brand small { display:block }
-.brand small { color:var(--muted);font-size:11px;margin-top:3px }
-.pill { color:var(--green);font-size:11px;border:1px solid #70dfb133;padding:7px 11px;border-radius:30px }
-main { max-width:1200px;margin:auto;padding:24px }
-.screen { animation:screenIn .45s ease both }
-@keyframes screenIn {
-  from { opacity:0;transform:translateY(12px) }
-  to { opacity:1;transform:translateY(0) }
+.btn:hover:not(:disabled){transform:translateY(-2px);border-color:var(--blue)}
+.btn.gold{background:linear-gradient(135deg,#ffdb83,#bd7a19);color:#241603;font-weight:bold;border:0}
+.btn.red{border-color:#9b344c;color:#ff8a9b}
+.btn.blue{background:linear-gradient(135deg,#147ac1,#12355d);border-color:#4bbfff}
+.arena{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px}
+.player{
+ background:linear-gradient(145deg,#131e34,#0b1120);
+ border:1px solid #2b3b5a;border-radius:17px;padding:14px;
+ transition:.25s;min-width:0
 }
-.hero {
-  min-height:75vh;display:grid;place-items:center;text-align:center;
-  padding:35px 15px;
+.player.active{border-color:var(--blue);box-shadow:0 0 22px #168bff22}
+.player.enemy.active{border-color:var(--red);box-shadow:0 0 22px #ff526b22}
+.playerHead{display:flex;align-items:center;gap:10px}
+.avatar{
+ width:48px;height:48px;flex-shrink:0;border-radius:13px;
+ display:grid;place-items:center;font-size:28px;
+ background:linear-gradient(135deg,#234d7b,#12182d);border:1px solid #5278a8
 }
-.eyebrow { color:var(--gold);font-size:12px;font-weight:800;letter-spacing:1px }
-.hero h1 { font-size:clamp(38px,7vw,68px);line-height:1.25;margin:20px 0 }
-.hero h1 em { color:var(--gold);font-style:normal }
-.hero p { color:var(--muted);max-width:540px;line-height:2;margin:0 auto 26px }
-.hero-symbol {
-  font-size:100px;color:var(--gold);
-  text-shadow:0 0 55px #edc47c55;margin-bottom:12px;
-  animation:float 4s ease-in-out infinite;
+.enemy .avatar{background:linear-gradient(135deg,#6a203d,#201222);border-color:#9d4564}
+.name{font-weight:bold}.sub{font-size:11px;color:var(--muted);margin-top:5px}
+.stats{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.stat{flex:1;min-width:65px;background:#080e1b;border:1px solid #253651;border-radius:9px;padding:8px}
+.stat span{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}
+.stat b{font-size:16px}
+.hpbar{height:7px;background:#252b40;border-radius:20px;margin-top:10px;overflow:hidden}
+.hpfill{height:100%;background:linear-gradient(90deg,#23b982,#77f0b8);transition:width .35s}
+.enemy .hpfill{background:linear-gradient(90deg,#dc3156,#ff8290)}
+.section{border:1px solid #263652;background:#0d1425;border-radius:16px;padding:14px;margin-bottom:16px}
+.sectionHead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:13px}
+h2{font-size:16px;margin:0}
+.hint{font-size:11px;color:var(--muted)}
+.hand{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.card{
+ position:relative;min-width:0;border-radius:12px;overflow:hidden;
+ border:1px solid var(--rarity,#3d5c85);background:#10192a;
+ cursor:pointer;transition:transform .2s,box-shadow .2s;
+ box-shadow:0 7px 18px #0005
 }
-@keyframes float { 50% { transform:translateY(-10px) } }
-.primary,.secondary {
-  padding:13px 19px;border-radius:12px;font-weight:800;
-  transition:transform .2s,filter .2s;
+.card:hover{transform:translateY(-5px);box-shadow:0 0 18px color-mix(in srgb,var(--rarity),transparent 55%)}
+.card.selected{outline:2px solid white;transform:translateY(-4px)}
+.art{
+ height:130px;display:flex;align-items:center;justify-content:center;
+ position:relative;overflow:hidden;
+ background:
+ radial-gradient(circle at 50% 38%,#ffffff42,transparent 25%),
+ linear-gradient(150deg,var(--c1),var(--c2) 55%,#080b18)
 }
-.primary { border:0;background:linear-gradient(120deg,#f3d89f,#d9a75e);color:#191720 }
-.secondary { background:#1a2435;border:1px solid var(--line);color:var(--text) }
-.primary:hover,.secondary:hover { transform:translateY(-2px);filter:brightness(1.08) }
-.hero-buttons { display:flex;justify-content:center;gap:10px;flex-wrap:wrap }
-.hint { color:#75829b;font-size:11px;margin-top:23px;line-height:1.8 }
-
-.game-head {
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;margin-bottom:18px;flex-wrap:wrap;
+.art:before,.art:after{content:"";position:absolute;inset:0;pointer-events:none}
+.art:before{
+ background:repeating-linear-gradient(120deg,transparent 0 20px,#ffffff10 21px 23px);
+ transform:scale(1.5)
 }
-.small-btn { background:transparent;color:var(--muted);border:0;padding:8px;font-size:12px }
-.round-label { color:var(--gold);font-size:12px;font-weight:800 }
-.arena {
-  display:grid;grid-template-columns:1fr 1fr;gap:15px;
+.art:after{
+ background:linear-gradient(0deg,#090d1af5,transparent 45%,#0002);
 }
-.player {
-  position:relative;min-width:0;overflow:hidden;
-  background:linear-gradient(145deg,#151e30,#101623);
-  border:1px solid var(--line);border-radius:20px;padding:17px;
-  transition:border-color .3s,box-shadow .3s,transform .3s;
+.character{
+ z-index:1;font-size:67px;filter:drop-shadow(0 0 12px #ffffff65);
+ transform:translateY(-1px);animation:float 3s ease-in-out infinite
 }
-.player.active {
-  border-color:#edc47c99;
-  box-shadow:0 0 0 1px #edc47c1a,0 12px 35px #0003;
+@keyframes float{0%,100%{transform:translateY(-1px)}50%{transform:translateY(4px)}}
+.cost{
+ position:absolute;top:7px;right:7px;z-index:2;
+ width:29px;height:29px;border-radius:50%;display:grid;place-items:center;
+ background:#06172b;border:2px solid #8bd9ff;font-weight:bold
 }
-.player.opponent { background:linear-gradient(145deg,#1c1828,#111522) }
-.player-head { display:flex;align-items:center;gap:10px }
-.avatar {
-  width:42px;height:42px;display:grid;place-items:center;
-  border-radius:13px;font-weight:900;font-size:17px;
+.rarity{
+ position:absolute;top:8px;left:7px;z-index:2;font-size:9px;
+ background:#050914c9;border:1px solid var(--rarity);border-radius:20px;padding:4px 6px
 }
-.avatar.one { background:#183c56;color:var(--blue) }
-.avatar.two { background:#4b2835;color:var(--red) }
-.player-name { flex:1;min-width:0 }
-.player-name b,.player-name small { display:block }
-.player-name b { font-size:14px }
-.player-name small { color:var(--muted);font-size:10px;margin-top:4px }
-.turn-tag {
-  font-size:10px;color:#1a1711;background:var(--gold);
-  padding:6px 9px;border-radius:20px;font-weight:900;
+.cardInfo{padding:9px}
+.cardName{font-size:13px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cardType{font-size:10px;color:var(--rarity);margin-top:5px}
+.desc{font-size:10px;color:#d2d9e9;line-height:1.7;min-height:43px;margin-top:7px}
+.cardStats{display:flex;justify-content:space-between;gap:5px;border-top:1px solid #ffffff16;padding-top:7px;font-size:11px}
+.attack{color:#ff8796}.defense{color:#7bcfff}
+.cardActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.battleMsg{
+ text-align:center;border:1px solid #30476b;background:#101c32;
+ border-radius:12px;padding:13px;margin-bottom:15px;font-size:13px
 }
-.health-text { display:flex;justify-content:space-between;margin-top:17px;font-size:11px;color:var(--muted) }
-.health-text b { color:var(--text) }
-.health-track { height:8px;background:#283145;border-radius:20px;margin-top:8px;overflow:hidden }
-.health-fill { height:100%;width:100%;transition:width .4s;background:linear-gradient(90deg,#338bd0,#79d0ff);border-radius:20px }
-.player.opponent .health-fill { background:linear-gradient(90deg,#b8415b,#ff8c9a) }
-.resource-row { display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;color:#9caac1;font-size:11px }
-.resource-row b { color:var(--text) }
-.shield-label { color:#82d4ff }
-.hand-title { display:flex;justify-content:space-between;align-items:center;margin-top:20px;font-size:12px;font-weight:800 }
-.hand-title small { color:var(--muted);font-size:10px;font-weight:500 }
-.hand {
-  display:flex;gap:9px;overflow-x:auto;min-height:205px;
-  padding:13px 2px 8px;scrollbar-width:thin;
-  scrollbar-color:#3b4962 transparent;
+.battleMsg strong{color:var(--gold)}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.log{max-height:170px;overflow:auto;font-size:12px;line-height:1.9;color:#c4cfe3}
+.log div{border-bottom:1px solid #ffffff0c;padding:4px 0}
+.modal{
+ position:fixed;inset:0;background:#02040bdc;z-index:20;
+ display:none;align-items:center;justify-content:center;padding:18px
 }
-.empty-hand {
-  min-height:170px;flex:1;display:grid;place-items:center;
-  color:#68758e;font-size:12px;text-align:center;
-  border:1px dashed #2b3850;border-radius:12px;
+.modal.show{display:flex}
+.modalBox{width:min(430px,100%);background:#111b30;border:1px solid #49658e;border-radius:18px;padding:22px;text-align:center;box-shadow:0 20px 80px #000}
+.modalBox h2{color:var(--gold);font-size:23px;margin-bottom:12px}
+.modalBox p{color:#d2d9e9;line-height:1.9;font-size:13px}
+.modalBtns{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:15px}
+.overlay{
+ position:fixed;inset:0;background:#030711f5;z-index:15;
+ display:none;align-items:center;justify-content:center;padding:20px;text-align:center
 }
-.card {
-  flex:0 0 128px;min-height:183px;position:relative;
-  padding:10px;border-radius:13px;text-align:right;color:var(--text);
-  background:linear-gradient(155deg,#26344b,#111724 80%);
-  border:1px solid #465672;display:flex;flex-direction:column;
-  overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;
+.overlay.show{display:flex}
+.overlayBox{max-width:400px;width:100%;padding:25px;border:1px solid #4b6992;border-radius:20px;background:#101a30}
+.overlayBox h2{font-size:26px;color:var(--gold);margin:0 0 12px}
+.overlayBox p{line-height:1.9;color:#d5deee;font-size:13px}
+.empty{color:var(--muted);font-size:12px;text-align:center;padding:20px}
+@media(max-width:800px){
+ .wrap{padding:10px}.hand{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .art{height:115px}.character{font-size:58px}
+ .arena{gap:8px}.player{padding:10px}.avatar{width:38px;height:38px;font-size:23px}
+ .name{font-size:12px}.stat{min-width:55px;padding:6px}.stat b{font-size:14px}
 }
-.card::before {
-  content:"";position:absolute;top:-35px;left:-25px;width:85px;height:85px;
-  border-radius:50%;background:var(--glow);opacity:.2;filter:blur(23px);
-}
-.card:hover:not(:disabled) {
-  transform:translateY(-5px);border-color:var(--glow);
-  box-shadow:0 10px 25px #0005;
-}
-.card:disabled { filter:saturate(.55) }
-.card-top { display:flex;justify-content:space-between;align-items:center;position:relative }
-.cost {
-  width:25px;height:25px;border-radius:50%;display:grid;place-items:center;
-  background:#244966;border:1px solid #6099c1;color:#c9eaff;font-weight:900;font-size:12px;
-}
-.type { color:var(--glow);font-size:9px;font-weight:900 }
-.card-art { height:54px;display:grid;place-items:center;font-size:36px;margin:5px 0 }
-.card h3 { font-size:12px;margin:2px 0 5px;white-space:nowrap }
-.card-desc { color:#aab6ca;font-size:10px;line-height:1.65;min-height:34px }
-.card-stats { display:flex;gap:7px;margin-top:auto;padding-top:8px;border-top:1px solid #ffffff12;font-size:10px;font-weight:900 }
-.attack { color:#ff9ca8 }.defense { color:#83d2ff }.heal { color:#79e1b4 }
-.back-card {
-  flex:0 0 30px;height:42px;border-radius:5px;border:1px solid #ad8b54;
-  background:repeating-linear-gradient(45deg,#17233a,#17233a 4px,#27344c 4px,#27344c 6px);
-}
-.back-stack { display:flex;gap:5px;align-items:center;justify-content:center;width:100%;min-height:170px }
-.back-label { font-size:11px;color:var(--muted);text-align:center;margin-top:-20px }
-.controls {
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:14px;margin-top:15px;border:1px solid var(--line);
-  background:#111827;border-radius:16px;
-}
-.controls b,.controls small { display:block }
-.controls b { font-size:12px }
-.controls small { color:var(--muted);font-size:10px;margin-top:5px;line-height:1.6 }
-.log {
-  margin-top:14px;padding:13px;border:1px solid #222e43;
-  border-radius:14px;background:#0d121d;
-}
-.log h3 { color:var(--gold);font-size:11px;margin:0 0 10px }
-.log-list { display:flex;gap:7px;overflow-x:auto }
-.log-list p {
-  margin:0;padding:7px 9px;border-radius:7px;background:#182132;
-  color:#a2aec2;font-size:10px;white-space:nowrap;
-}
-.overlay {
-  position:fixed;inset:0;z-index:10;display:flex;align-items:center;
-  justify-content:center;text-align:center;padding:22px;
-  background:radial-gradient(circle at center,#202d48ed,#080b14f7 75%);
-  backdrop-filter:blur(18px);
-}
-.overlay-content { max-width:450px;animation:handoffIn .65s cubic-bezier(.2,.8,.2,1) both }
-@keyframes handoffIn {
-  from { opacity:0;transform:translateY(24px) scale(.96) }
-  to { opacity:1;transform:translateY(0) scale(1) }
-}
-.overlay-icon { color:var(--gold);font-size:65px;text-shadow:0 0 35px #edc47c55 }
-.overlay h2 { font-size:clamp(30px,6vw,45px);line-height:1.35;margin:15px 0 }
-.overlay h2 em { font-style:normal;color:var(--gold) }
-.overlay p { color:var(--muted);font-size:13px;line-height:2 }
-.overlay .primary { margin-top:14px;min-width:180px }
-.privacy { color:#7886a0;font-size:10px;margin-top:20px }
-.result-stats { display:flex;justify-content:center;gap:10px;margin:22px 0 }
-.result-stats div { background:#151e2e;border:1px solid var(--line);padding:14px 22px;border-radius:13px;min-width:110px }
-.result-stats small,.result-stats b { display:block }
-.result-stats small { color:var(--muted);font-size:10px }
-.result-stats b { margin-top:7px;font-size:17px }
-.toast {
-  position:fixed;z-index:20;bottom:20px;left:50%;transform:translateX(-50%);
-  background:#f1cd8c;color:#1a1720;padding:11px 16px;border-radius:11px;
-  font-size:12px;font-weight:800;box-shadow:0 10px 30px #0008;
-  max-width:calc(100vw - 25px);text-align:center;
-}
-#gameScreen.transitioning { animation:fadeAway .35s ease both }
-@keyframes fadeAway { to { opacity:0;transform:scale(.985);filter:blur(3px) } }
-
-@media(max-width:760px) {
-  main { padding:13px }
-  .topbar { padding:13px 15px }
-  .arena { grid-template-columns:1fr;gap:12px }
-  .player { padding:13px;border-radius:16px }
-  .hand { min-height:190px }
-  .card { flex-basis:119px;min-height:178px }
-  .controls { padding:11px;align-items:center }
-  .controls .primary { padding:11px 12px;font-size:11px;white-space:nowrap }
-  .controls small { max-width:185px }
-  .game-head { margin-bottom:12px }
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after { animation-duration:.01ms!important;transition-duration:.01ms!important }
+@media(max-width:430px){
+ .hand{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .arena{grid-template-columns:1fr}
+ .bottom{grid-template-columns:1fr}
+ .logo{font-size:17px}
 }
 </style>
 </head>
-
 <body>
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-icon">✦</div>
-    <div><b>ساحة النخبة</b><small>مبارزة البطاقات</small></div>
-  </div>
-  <span class="pill">● لعب محلي</span>
+<header class="top">
+ <div class="logo">⚔ ساحة النخبة <small>مبارزة البطاقات · Anime Duel</small></div>
+ <div class="pill">الجولة <b id="round">1</b></div>
+ <button class="btn" id="rulesBtn">❔ القواعد</button>
+ <button class="btn red" id="restartTop">إعادة المباراة</button>
 </header>
 
-<main>
-  <section id="homeScreen" class="screen hero">
-    <div>
-      <div class="hero-symbol">⚔</div>
-      <div class="eyebrow">مبارزة لاعبين · جهاز واحد</div>
-      <h1>العقل سلاحك،<br><em>والنصر قرارك.</em></h1>
-      <p>استخدم الهجوم والدفاع والقدرات الخاصة. خطط لكل دور، حافظ على طاقتك، وحاول أن تكون آخر محارب صامد.</p>
-      <div class="hero-buttons">
-        <button id="startBtn" class="primary">ابدأ المبارزة ←</button>
-        <button id="rulesBtn" class="secondary">طريقة اللعب</button>
-      </div>
-      <div class="hint">لا حسابات ولا خادم. تُحفظ المباراة مؤقتًا في جلسة المتصفح.</div>
-    </div>
+<main class="wrap">
+ <div class="toolbar">
+  <div>
+   <h2>ساحة المعركة</h2>
+   <div class="hint" style="margin-top:6px">مبارزة محلية للاعبين بالتناوب على الجهاز نفسه</div>
+  </div>
+  <div class="pill">البطاقات في يدك: <b id="handCount">5</b></div>
+ </div>
+
+ <div class="arena">
+  <section class="player active" id="panel0">
+   <div class="playerHead">
+    <div class="avatar">⚡</div>
+    <div style="flex:1"><div class="name">اللاعب الأول</div><div class="sub" id="status0">دورك الآن</div></div>
+    <div class="pill">P1</div>
+   </div>
+   <div class="hpbar"><div class="hpfill" id="hpbar0" style="width:100%"></div></div>
+   <div class="stats">
+    <div class="stat"><span>❤️ الصحة</span><b class="hp" id="hp0">30</b></div>
+    <div class="stat"><span>🛡 الدرع</span><b class="shield" id="shield0">0</b></div>
+    <div class="stat"><span>⚡ الطاقة</span><b class="energy" id="energy0">3/3</b></div>
+   </div>
   </section>
-
-  <section id="gameScreen" class="screen hidden">
-    <div class="game-head">
-      <button id="homeBtn" class="small-btn">← القائمة الرئيسية</button>
-      <div class="round-label" id="roundLabel">الجولة 1</div>
-      <button id="restartBtn" class="small-btn">↻ مباراة جديدة</button>
-    </div>
-
-    <div class="arena">
-      <section id="playerPanel0" class="player active">
-        <div class="player-head">
-          <div class="avatar one">١</div>
-          <div class="player-name"><b>اللاعب الأول</b><small id="status0">دورك الحالي</small></div>
-          <span id="tag0" class="turn-tag">دوره الآن</span>
-        </div>
-        <div class="health-text"><span>الصحة</span><b id="healthText0">30 / 30</b></div>
-        <div class="health-track"><div id="healthBar0" class="health-fill"></div></div>
-        <div class="resource-row">
-          <span>⚡ الطاقة <b id="energy0">1/1</b></span>
-          <span>▤ في اليد <b id="handCount0">5</b></span>
-          <span>▤ في الرزمة <b id="deckCount0">19</b></span>
-        </div>
-        <div class="hand-title"><span>بطاقات اللاعب الأول</span><small id="handNote0">يدك الحالية</small></div>
-        <div id="hand0" class="hand"></div>
-      </section>
-
-      <section id="playerPanel1" class="player opponent">
-        <div class="player-head">
-          <div class="avatar two">٢</div>
-          <div class="player-name"><b>اللاعب الثاني</b><small id="status1">ينتظر دوره</small></div>
-          <span id="tag1" class="turn-tag hidden">دوره الآن</span>
-        </div>
-        <div class="health-text"><span>الصحة</span><b id="healthText1">30 / 30</b></div>
-        <div class="health-track"><div id="healthBar1" class="health-fill"></div></div>
-        <div class="resource-row">
-          <span>⚡ الطاقة <b id="energy1">1/1</b></span>
-          <span>▤ في اليد <b id="handCount1">5</b></span>
-          <span>▤ في الرزمة <b id="deckCount1">19</b></span>
-        </div>
-        <div class="hand-title"><span>بطاقات اللاعب الثاني</span><small id="handNote1">البطاقات مخفية</small></div>
-        <div id="hand1" class="hand"></div>
-      </section>
-    </div>
-
-    <div class="controls">
-      <div><b id="turnTitle">دور اللاعب الأول</b><small id="turnDescription">العب بطاقاتك أو أنهِ دورك عندما تنتهي.</small></div>
-      <button id="endTurnBtn" class="primary">إنهاء الدور ←</button>
-    </div>
-
-    <section class="log">
-      <h3>⌁ سجل المبارزة</h3>
-      <div id="logList" class="log-list"></div>
-    </section>
+  <section class="player enemy" id="panel1">
+   <div class="playerHead">
+    <div class="avatar">🔥</div>
+    <div style="flex:1"><div class="name">اللاعب الثاني</div><div class="sub" id="status1">ينتظر دوره</div></div>
+    <div class="pill">P2</div>
+   </div>
+   <div class="hpbar"><div class="hpfill" id="hpbar1" style="width:100%"></div></div>
+   <div class="stats">
+    <div class="stat"><span>❤️ الصحة</span><b class="hp" id="hp1">30</b></div>
+    <div class="stat"><span>🛡 الدرع</span><b class="shield" id="shield1">0</b></div>
+    <div class="stat"><span>⚡ الطاقة</span><b class="energy" id="energy1">3/3</b></div>
+   </div>
   </section>
+ </div>
 
-  <section id="resultScreen" class="screen hero hidden">
-    <div>
-      <div class="hero-symbol">♛</div>
-      <div class="eyebrow">انتهت المبارزة</div>
-      <h1 id="resultTitle">انتصار مستحق!</h1>
-      <p id="resultDescription">أحسنت اللعب.</p>
-      <div class="result-stats">
-        <div><small>الجولات</small><b id="resultRounds">1</b></div>
-        <div><small>صحة الفائز</small><b id="resultHealth">30</b></div>
-      </div>
-      <div class="hero-buttons">
-        <button id="againBtn" class="primary">مبارزة جديدة ←</button>
-        <button id="resultHomeBtn" class="secondary">القائمة الرئيسية</button>
-      </div>
-    </div>
+ <div class="battleMsg" id="battleMsg">دور <strong>اللاعب الأول</strong> — اختر بطاقة للعبها.</div>
+
+ <section class="section">
+  <div class="sectionHead">
+   <div><h2>🃏 يد اللاعب الحالي</h2><div class="hint" style="margin-top:5px">اضغط على البطاقة لاختيارها ثم استخدمها</div></div>
+   <div class="pill">المختارة: <b id="selectedName">لا شيء</b></div>
+  </div>
+  <div class="hand" id="hand"></div>
+  <div class="cardActions">
+   <button class="btn gold" id="playBtn" disabled>استخدام البطاقة</button>
+   <button class="btn" id="endBtn">إنهاء الدور ⟵</button>
+   <button class="btn" id="drawBtn">سحب بطاقة (1 طاقة)</button>
+  </div>
+ </section>
+
+ <div class="bottom">
+  <section class="section">
+   <div class="sectionHead"><h2>📜 سجل المعركة</h2><button class="btn" id="clearLog">مسح السجل</button></div>
+   <div class="log" id="log"></div>
   </section>
+  <section class="section">
+   <div class="sectionHead"><h2>📘 كيف تفوز؟</h2></div>
+   <div class="hint" style="line-height:2">
+    • اخفض صحة خصمك إلى الصفر للفوز.<br>
+    • الدرع يمتص الضرر قبل الصحة.<br>
+    • الطاقة تُستعاد في بداية دورك.<br>
+    • بعض البطاقات تسبب حالات خاصة مثل الحرق والسم والتجميد.<br>
+    • بطاقات العلاج لا تتجاوز الصحة القصوى 30.<br>
+    • إذا نفد الرصيد من البطاقات، يمكنك سحب المزيد بالطاقة.
+   </div>
+  </section>
+ </div>
 </main>
 
-<!-- شاشة التسليم تغطي البطاقات أثناء تبديل اللاعبين -->
-<div id="handoff" class="overlay hidden">
-  <div class="overlay-content">
-    <div class="overlay-icon">✦</div>
-    <div class="eyebrow">تبديل الأدوار</div>
-    <h2>مرّر الجهاز إلى<br><em id="nextPlayerName">اللاعب الثاني</em></h2>
-    <p>تأكد أن اللاعب التالي لا يرى بطاقات خصمه. اضغط عندما تكون مستعدًا لبدء دورك.</p>
-    <button id="readyBtn" class="primary">أنا مستعد ←</button>
-    <div class="privacy">◈ تم إخفاء أوراق اللاعب السابق</div>
-  </div>
+<div class="overlay" id="handover">
+ <div class="overlayBox">
+  <h2 id="handoverTitle">انتهى الدور</h2>
+  <p id="handoverText">سلّم الجهاز للاعب التالي.</p>
+  <button class="btn gold" id="readyBtn">أنا مستعد</button>
+ </div>
 </div>
 
-<div id="rules" class="overlay hidden">
-  <div class="overlay-content">
-    <div class="overlay-icon">📜</div>
-    <h2>قواعد المبارزة</h2>
-    <p>
-      يبدأ كل لاعب بـ30 نقطة صحة وخمس بطاقات.<br>
-      تكلفة البطاقة تظهر داخل الدائرة الزرقاء.<br>
-      الهجوم يضرب الخصم، والدرع يمتص الضرر قبل الصحة.<br>
-      الشفاء لا يتجاوز 30 نقطة صحة.<br>
-      الطاقة تتجدد وتزداد تدريجيًا حتى خمس نقاط.<br>
-      كل لاعب يسحب بطاقة في بداية دوره.<br>
-      أول لاعب يصل بصحة خصمه إلى الصفر يفوز.
-    </p>
-    <button id="closeRules" class="primary">فهمت، لنبدأ</button>
-  </div>
+<div class="modal" id="modal">
+ <div class="modalBox">
+  <h2 id="modalTitle">ساحة النخبة</h2>
+  <p id="modalText"></p>
+  <div class="modalBtns" id="modalBtns"></div>
+ </div>
 </div>
-
-<div id="toast" class="toast hidden"></div>
 
 <script>
-(() => {
 "use strict";
 
-const $ = id => document.getElementById(id);
-const MAX_HP = 30;
-const KEY = "elite_duel_session_v2";
-
-const library = [
-  {name:"ضربة خاطفة",type:"هجوم",cost:1,icon:"⚔️",desc:"ألحق 4 ضرر بالخصم.",attack:4,glow:"#ff8797"},
-  {name:"ضربة ساحقة",type:"هجوم",cost:2,icon:"🗡️",desc:"ألحق 7 ضرر بالخصم.",attack:7,glow:"#ff8797"},
-  {name:"درع الفولاذ",type:"دفاع",cost:1,icon:"🛡️",desc:"اكتسب 5 نقاط درع.",shield:5,glow:"#75caff"},
-  {name:"حصن الحارس",type:"دفاع",cost:2,icon:"🏰",desc:"اكتسب 9 نقاط درع.",shield:9,glow:"#75caff"},
-  {name:"بلسم الحياة",type:"شفاء",cost:2,icon:"💚",desc:"استعد 5 نقاط صحة.",heal:5,glow:"#70dfb1"},
-  {name:"شرارة سحرية",type:"قدرة",cost:1,icon:"✨",desc:"ألحق 3 ضرر واسحب بطاقة.",attack:3,draw:1,glow:"#c8a1ff"},
-  {name:"امتصاص الروح",type:"هجوم",cost:2,icon:"🌘",desc:"ألحق 4 ضرر واستعد 3 صحة.",attack:4,heal:3,glow:"#c8a1ff"},
-  {name:"رمح الاختراق",type:"هجوم",cost:3,icon:"🔱",desc:"ألحق 10 ضرر بالخصم.",attack:10,glow:"#ff8797"},
-  {name:"تركيز المحارب",type:"قدرة",cost:0,icon:"🔥",desc:"اسحب بطاقتين فورًا.",draw:2,glow:"#edc47c"},
-  {name:"الصد المرتد",type:"دفاع",cost:1,icon:"🪞",desc:"اكتسب 3 درع واسحب بطاقة.",shield:3,draw:1,glow:"#75caff"},
-  {name:"سم الظلال",type:"هجوم",cost:2,icon:"☠️",desc:"ألحق 5 ضرر بالخصم.",attack:5,glow:"#70dfb1"},
-  {name:"نيزك اللهب",type:"هجوم",cost:3,icon:"☄️",desc:"ألحق 8 ضرر واسحب بطاقة.",attack:8,draw:1,glow:"#ff9e6b"}
+const CARD_DATA = [
+ {id:"slash",name:"ضربة ساحقة",emoji:"⚔️",cost:2,atk:7,def:0,type:"هجوم",rarity:"نادر",c1:"#124c85",c2:"#091323",color:"#65c8ff",desc:"ألحق 7 ضرر بالخصم."},
+ {id:"guard",name:"درع الفولاذ",emoji:"🛡️",cost:2,atk:0,def:8,type:"دفاع",rarity:"شائع",c1:"#315b82",c2:"#101b2c",color:"#76d5ff",desc:"اكتسب 8 نقاط درع."},
+ {id:"heal",name:"بلسم الحياة",emoji:"🌸",cost:2,atk:0,heal:5,type:"شفاء",rarity:"نادر",c1:"#14664c",c2:"#071d23",color:"#5df0ba",desc:"استعد 5 نقاط صحة."},
+ {id:"drain",name:"امتصاص الروح",emoji:"🌀",cost:3,atk:4,lifesteal:3,type:"سحر",rarity:"ملحمي",c1:"#651d59",c2:"#160c2b",color:"#e8a0ff",desc:"ألحق 4 ضرر واستعد 3 صحة."},
+ {id:"burn",name:"نيزك اللهب",emoji:"☄️",cost:3,atk:5,burn:2,type:"نار",rarity:"أسطوري",c1:"#8d3022",c2:"#210d1a",color:"#ffac67",desc:"ألحق 5 ضرر واحرق الخصم لجولتين."},
+ {id:"poison",name:"سم الأفعى",emoji:"🐍",cost:2,poison:3,type:"سم",rarity:"ملحمي",c1:"#23582e",c2:"#0b1a18",color:"#a9f36a",desc:"يسبب 3 ضرر في بداية دور الخصم لجولتين."},
+ {id:"freeze",name:"الصقيع الأبدي",emoji:"❄️",cost:3,atk:3,freeze:1,type:"جليد",rarity:"أسطوري",c1:"#1b5c8b",c2:"#10182c",color:"#b0efff",desc:"ألحق 3 ضرر واجعل الخصم يفقد طاقة في دوره التالي."},
+ {id:"double",name:"اندفاع الظلال",emoji:"🌑",cost:3,atk:4,type:"هجوم مزدوج",rarity:"ملحمي",c1:"#4b286f",c2:"#0c1025",color:"#d6a5ff",desc:"ألحق 4 ضرر. إذا كان الخصم بلا درع ألحق 2 إضافية."},
+ {id:"fortress",name:"حصن الروح",emoji:"🏰",cost:3,def:5,heal:2,type:"دفاع",rarity:"نادر",c1:"#354d70",c2:"#10192b",color:"#9acbff",desc:"اكتسب 5 درع واستعد نقطتي صحة."},
+ {id:"strike",name:"قاطع النجوم",emoji:"🌠",cost:4,atk:10,type:"هجوم",rarity:"أسطوري",c1:"#7b2c3d",c2:"#170d22",color:"#ff9fae",desc:"ألحق 10 ضرر بالخصم."},
+ {id:"focus",name:"تركيز المحارب",emoji:"🧘",cost:1,energy:2,type:"تركيز",rarity:"شائع",c1:"#2b4f66",c2:"#10182b",color:"#9fe4ff",desc:"استعد نقطتي طاقة، بحد أقصى طاقتك."},
+ {id:"draw",name:"معرفة الأقدار",emoji:"📜",cost:1,draw:2,type:"دعم",rarity:"نادر",c1:"#695022",c2:"#1c1320",color:"#ffd985",desc:"اسحب بطاقتين إضافيتين."},
+ {id:"execution",name:"حكم الظلال",emoji:"👁️",cost:5,atk:8,execute: true,type:"نهائي",rarity:"أسطوري",c1:"#8e193e",c2:"#160a1b",color:"#ffb4d0",desc:"ألحق 8 ضرر، وإذا كانت صحة الخصم 10 أو أقل ألحق 5 إضافية."},
+ {id:"cleanse",name:"نور التطهير",emoji:"✨",cost:2,heal:4,cleanse:true,type:"دعم",rarity:"ملحمي",c1:"#6b5b27",c2:"#17162a",color:"#ffeaa1",desc:"استعد 4 صحة وأزل السم والحرق عن نفسك."},
+ {id:"pierce",name:"سهم العاصفة",emoji:"🏹",cost:2,atk:5,pierce:true,type:"اختراق",rarity:"نادر",c1:"#174e5e",c2:"#10172b",color:"#8af0ff",desc:"ألحق 5 ضرر يتجاوز الدرع."}
 ];
 
-let state = null;
-let toastTimer = null;
-let handoffTimer = null;
-let transitionBusy = false;
+const $ = id => document.getElementById(id);
+let game, selected = null, awaitingReady = false;
 
-function id() {
-  return Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-5);
+function makeDeck(){
+ const deck=[];
+ for(let i=0;i<2;i++) CARD_DATA.forEach(c=>deck.push(c.id));
+ return shuffle(deck);
 }
-function makeDeck() {
-  let deck = [];
-  // نسختان من كل بطاقة لكل لاعب
-  library.forEach(c => {
-    deck.push({...c,uid:id()});
-    deck.push({...c,uid:id()});
-  });
-  for(let i=deck.length-1;i>0;i--) {
-    const j=Math.floor(Math.random()*(i+1));
-    [deck[i],deck[j]]=[deck[j],deck[i]];
-  }
-  return deck;
+function shuffle(a){
+ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+ return a;
 }
-function makePlayer(name) {
-  return {name,hp:MAX_HP,shield:0,energy:1,maxEnergy:1,
-    hand:[],deck:makeDeck(),turnsTaken:0};
+function newPlayer(){
+ return {hp:30,shield:0,energy:3,maxEnergy:3,hand:[],deck:makeDeck(),status:{burn:0,poison:0,freeze:0}};
 }
-function draw(player, amount=1) {
-  let drawn=0;
-  for(let i=0;i<amount;i++) {
-    if(player.hand.length>=8 || player.deck.length===0) break;
-    player.hand.push(player.deck.pop());
-    drawn++;
-  }
-  return drawn;
+function cardById(id){return CARD_DATA.find(c=>c.id===id)||CARD_DATA[0]}
+function startGame(){
+ game={players:[newPlayer(),newPlayer()],turn:0,round:1,over:false,log:[],starter:0};
+ game.players.forEach(p=>{for(let i=0;i<5;i++)drawRaw(p)});
+ selected=null;awaitingReady=false;
+ $("handover").classList.remove("show");
+ addLog("بدأت المبارزة! كل لاعب يبدأ بخمس بطاقات.");
+ startTurn(true);render();
 }
-function newGame() {
-  const players=[makePlayer("اللاعب الأول"),makePlayer("اللاعب الثاني")];
-  draw(players[0],5);
-  draw(players[1],5);
-  players[0].turnsTaken=1;
-  return {
-    players,current:0,round:1,phase:"playing",
-    logs:["بدأت المبارزة. اللاعب الأول يبدأ."],
-    winner:null,handoffTo:1
-  };
+function drawRaw(p){
+ if(p.deck.length===0)p.deck=makeDeck();
+ const id=p.deck.pop();
+ if(id)p.hand.push(id);
 }
-function save() {
-  try {
-    sessionStorage.setItem(KEY,JSON.stringify(state));
-  } catch(e) {
-    // تستمر اللعبة حتى لو عطّل المتصفح التخزين.
-  }
+function addLog(msg){
+ if(!game)return;
+ game.log.unshift(msg);
+ game.log=game.log.slice(0,35);
 }
-function load() {
-  try {
-    const value=sessionStorage.getItem(KEY);
-    if(!value) return null;
-    const s=JSON.parse(value);
-    if(!s || !Array.isArray(s.players) || s.players.length!==2) return null;
-    if(!s.players.every(p=>Array.isArray(p.hand)&&Array.isArray(p.deck))) return null;
-    return s;
-  } catch(e) { return null; }
-}
-function log(message) {
-  state.logs.push(message);
-  if(state.logs.length>16) state.logs.shift();
-}
-function showScreen(id) {
-  ["homeScreen","gameScreen","resultScreen"].forEach(s=>{
-    $(s).classList.toggle("hidden",s!==id);
-  });
-}
-function toast(message) {
-  $("toast").textContent=message;
-  $("toast").classList.remove("hidden");
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>$("toast").classList.add("hidden"),2300);
-}
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-function startGame() {
-  clearTimeout(handoffTimer);
-  transitionBusy=false;
-  state=newGame();
-  save();
-  $("handoff").classList.add("hidden");
-  showScreen("gameScreen");
-  render();
-}
-function setHandoff(next) {
-  state.phase="handoff";
-  state.handoffTo=next;
-  transitionBusy=true;
-  save();
-
-  // انتقال مرئي قبل ظهور شاشة تسليم الجهاز
-  $("gameScreen").classList.add("transitioning");
-  handoffTimer=setTimeout(()=>{
-    $("gameScreen").classList.remove("transitioning");
-    $("nextPlayerName").textContent=state.players[next].name;
-    $("handoff").classList.remove("hidden");
-    transitionBusy=false;
-  },350);
-}
-function readyNextTurn() {
-  if(!state || state.phase!=="handoff" || transitionBusy) return;
-
-  $("handoff").classList.add("hidden");
-  const next=state.handoffTo;
-  state.current=next;
-  state.handoffTo=null;
-  state.phase="playing";
-
-  const p=state.players[next];
-
-  // الطاقة تزيد نقطة في كل دور جديد، بحد أقصى خمس نقاط.
-  if(p.turnsTaken>0) p.maxEnergy=Math.min(5,p.maxEnergy+1);
+function active(){return game.players[game.turn]}
+function enemy(){return game.players[1-game.turn]}
+function startTurn(initial=false){
+ const p=active();
+ if(game.over)return;
+ if(!initial){
+  p.maxEnergy=Math.min(10,p.maxEnergy+1);
   p.energy=p.maxEnergy;
-  p.turnsTaken++;
-
-  const drawn=draw(p,1);
-  log(`بدأ دور ${p.name}. الطاقة ${p.energy}/${p.maxEnergy}.`);
-  if(drawn) log(`${p.name} سحب بطاقة.`);
-  else log(`${p.name} لم يستطع سحب بطاقة جديدة.`);
-
-  render();
-  save();
+  drawRaw(p);
+ }
+ // تأثيرات الحالة تحدث في بداية دور صاحبها
+ if(p.status.burn>0){
+  const n=2;p.hp=Math.max(0,p.hp-n);p.status.burn--;
+  addLog("🔥 اللاعب "+(game.turn+1)+" تلقى "+n+" ضرر من الحرق.");
+ }
+ if(p.status.poison>0){
+  const n=3;p.hp=Math.max(0,p.hp-n);p.status.poison--;
+  addLog("☠️ اللاعب "+(game.turn+1)+" تلقى "+n+" ضرر من السم.");
+ }
+ if(p.status.freeze>0){
+  p.energy=Math.max(0,p.energy-1);p.status.freeze--;
+  addLog("❄️ أثر التجميد خفّض طاقة اللاعب "+(game.turn+1)+".");
+ }
+ if(p.hp<=0){finish(1-game.turn);return}
+ selected=null;
+ addLog("بدأ دور اللاعب "+(game.turn+1)+".");
+ render();
 }
-function finishTurn() {
-  if(!state || state.phase!=="playing" || transitionBusy) return;
-
-  const previous=state.current;
-  const next=1-previous;
-  log(`${state.players[previous].name} أنهى دوره.`);
-
-  // تزداد الجولة بعد انتهاء دور اللاعب الثاني.
-  if(previous===1) state.round++;
-
-  setHandoff(next);
+function damage(target,amount,opts={}){
+ let dmg=Math.max(0,amount);
+ if(opts.pierce){target.hp=Math.max(0,target.hp-dmg);return dmg}
+ const blocked=Math.min(target.shield,dmg);
+ target.shield-=blocked;dmg-=blocked;
+ target.hp=Math.max(0,target.hp-dmg);
+ return dmg;
 }
-function playCard(cardUid) {
-  if(!state || state.phase!=="playing" || transitionBusy) return;
+function playSelected(){
+ if(game.over||selected===null)return;
+ const p=active(),e=enemy(),card=cardById(p.hand[selected]);
+ if(!card)return;
+ if(p.energy<card.cost){addLog("طاقة غير كافية لاستخدام "+card.name+".");render();return}
+ p.energy-=card.cost;
+ p.hand.splice(selected,1);
+ selected=null;
 
-  const me=state.players[state.current];
-  const enemy=state.players[1-state.current];
-  const index=me.hand.findIndex(c=>c.uid===cardUid);
-  if(index<0) return;
-
-  const card=me.hand[index];
-  if(card.cost>me.energy) {
-    toast("طاقتك لا تكفي لهذه البطاقة.");
-    return;
-  }
-
-  // تُدفع التكلفة فقط بعد التأكد من إمكانية اللعب.
-  me.energy-=card.cost;
-  me.hand.splice(index,1);
-
-  const effects=[];
-
-  if(card.attack) {
-    const absorbed=Math.min(enemy.shield,card.attack);
-    enemy.shield-=absorbed;
-    const damage=card.attack-absorbed;
-    enemy.hp=Math.max(0,enemy.hp-damage);
-    effects.push(`ضرر ${damage}`);
-    if(absorbed) effects.push(`امتص الدرع ${absorbed}`);
-  }
-
-  if(card.shield) {
-    me.shield+=card.shield;
-    effects.push(`درع +${card.shield}`);
-  }
-
-  if(card.heal) {
-    const before=me.hp;
-    me.hp=Math.min(MAX_HP,me.hp+card.heal);
-    effects.push(`شفاء +${me.hp-before}`);
-  }
-
-  if(card.draw) {
-    const amount=draw(me,card.draw);
-    effects.push(`سحب ${amount} بطاقة`);
-  }
-
-  log(`${me.name} لعب «${card.name}»: ${effects.join("، ")||"تفعيل القدرة"}.`);
-
-  if(enemy.hp<=0) {
-    state.phase="finished";
-    state.winner=state.current;
-    log(`فاز ${me.name} بالمبارزة!`);
-    save();
-    render();
-    showResult();
-    return;
-  }
-
-  save();
-  render();
+ let dealt=0;
+ if(card.atk){
+  let n=card.atk;
+  if(card.execute&&e.hp<=10)n+=5;
+  if(card.id==="double"&&e.shield===0)n+=2;
+  dealt=damage(e,n,{pierce:card.pierce});
+  addLog("⚔️ اللاعب "+(game.turn+1)+" استخدم "+card.name+" وألحق "+n+" ضرر.");
+ }
+ if(card.def){p.shield=Math.min(30,p.shield+card.def);addLog("🛡️ اكتسب اللاعب "+(game.turn+1)+" "+card.def+" درع.")}
+ if(card.heal){const before=p.hp;p.hp=Math.min(30,p.hp+card.heal);addLog("💚 استعاد اللاعب "+(game.turn+1)+" "+(p.hp-before)+" صحة.")}
+ if(card.lifesteal){const before=p.hp;p.hp=Math.min(30,p.hp+card.lifesteal);addLog("🩸 امتصاص الروح أعاد "+(p.hp-before)+" صحة.")}
+ if(card.burn){e.status.burn=Math.max(e.status.burn,card.burn);addLog("🔥 أصبح الخصم محترقًا.")}
+ if(card.poison){e.status.poison=Math.max(e.status.poison,card.poison);addLog("☠️ أصيب الخصم بالسم.")}
+ if(card.freeze){e.status.freeze=Math.max(e.status.freeze,card.freeze);addLog("❄️ أصيب الخصم بالتجميد.")}
+ if(card.energy){p.energy=Math.min(p.maxEnergy,p.energy+card.energy);addLog("⚡ استعاد اللاعب "+(game.turn+1)+" طاقة.")}
+ if(card.draw){for(let i=0;i<card.draw;i++)drawRaw(p);addLog("📜 سحب اللاعب "+(game.turn+1)+" بطاقات إضافية.")}
+ if(card.cleanse){p.status.burn=0;p.status.poison=0;addLog("✨ أزيلت التأثيرات السلبية عن اللاعب "+(game.turn+1)+".")}
+ if(e.hp<=0){finish(game.turn);return}
+ render();
 }
-function cardHTML(card,playerIndex) {
-  const player=state.players[playerIndex];
-  const playable=state.phase==="playing" &&
-    state.current===playerIndex && card.cost<=player.energy;
-  const stats=[];
-  if(card.attack) stats.push(`<span class="attack">⚔ ${card.attack}</span>`);
-  if(card.shield) stats.push(`<span class="defense">⬟ ${card.shield}</span>`);
-  if(card.heal) stats.push(`<span class="heal">✚ ${card.heal}</span>`);
-  if(card.draw) stats.push(`<span class="heal">▤ +${card.draw}</span>`);
-
-  return `<button class="card" data-card="${escapeHTML(card.uid)}"
-    style="--glow:${card.glow}" ${playable?"":"disabled"}
-    aria-label="العب بطاقة ${escapeHTML(card.name)}">
-    <div class="card-top"><span class="cost">${card.cost}</span><span class="type">${escapeHTML(card.type)}</span></div>
-    <div class="card-art">${card.icon}</div>
-    <h3>${escapeHTML(card.name)}</h3>
-    <div class="card-desc">${escapeHTML(card.desc)}</div>
-    <div class="card-stats">${stats.join("")}</div>
-  </button>`;
+function drawCard(){
+ if(game.over)return;
+ const p=active();
+ if(p.energy<1){addLog("لا توجد طاقة كافية للسحب.");render();return}
+ p.energy--;drawRaw(p);addLog("سحب اللاعب "+(game.turn+1)+" بطاقة مقابل طاقة واحدة.");render();
 }
-function renderHand(index) {
-  const player=state.players[index];
-  const container=$("hand"+index);
-  const note=$("handNote"+index);
-  const active=state.phase==="playing" && state.current===index;
-
-  // إصلاح المشكلة: تُعرض يد كل لاعب في لوحته الخاصة فقط.
-  // لا يتم إدراج يد اللاعب النشط داخل لوحة اللاعب الأول دائمًا.
-  if(active) {
-    note.textContent="يدك الحالية";
-    if(!player.hand.length) {
-      container.innerHTML='<div class="empty-hand">لا توجد بطاقات في يدك.<br>أنه دورك وانتظر السحب القادم.</div>';
-    } else {
-      container.innerHTML=player.hand.map(c=>cardHTML(c,index)).join("");
-      container.querySelectorAll("[data-card]").forEach(button=>{
-        button.addEventListener("click",()=>playCard(button.dataset.card));
-      });
-    }
-  } else {
-    note.textContent="البطاقات مخفية";
-    const count=Math.min(player.hand.length,8);
-    container.innerHTML=`
-      <div style="width:100%">
-        <div class="back-stack">${Array.from({length:count},()=>'<span class="back-card"></span>').join("")}</div>
-        <div class="back-label">أوراق اللاعب مخفية عن الخصم</div>
-      </div>`;
-  }
+function endTurn(){
+ if(game.over||awaitingReady)return;
+ const old=game.turn;
+ game.turn=1-game.turn;
+ if(game.turn===0)game.round++;
+ selected=null;awaitingReady=true;
+ $("handoverTitle").textContent="انتهى دور اللاعب "+(old+1);
+ $("handoverText").textContent="سلّم الجهاز إلى اللاعب "+(game.turn+1)+"، ثم اضغط «أنا مستعد» لإخفاء يد اللاعب السابق.";
+ $("readyBtn").textContent="أنا مستعد";
+ $("handover").classList.add("show");
+ render();
 }
-function render() {
-  if(!state) return;
-  $("roundLabel").textContent="الجولة "+state.round;
-
-  state.players.forEach((p,i)=>{
-    $("healthText"+i).textContent=`${p.hp} / ${MAX_HP}`+(p.shield?` · درع ${p.shield}`:"");
-    $("healthBar"+i).style.width=(p.hp/MAX_HP*100)+"%";
-    $("energy"+i).textContent=`${p.energy}/${p.maxEnergy}`;
-    $("handCount"+i).textContent=p.hand.length;
-    $("deckCount"+i).textContent=p.deck.length;
-
-    const active=state.phase==="playing" && state.current===i;
-    $("playerPanel"+i).classList.toggle("active",active);
-    $("tag"+i).classList.toggle("hidden",!active);
-    $("status"+i).textContent=active?"دورك الحالي":"ينتظر دوره";
-    renderHand(i);
+function ready(){
+ if(!awaitingReady||game.over)return;
+ awaitingReady=false;$("handover").classList.remove("show");
+ startTurn(false);
+}
+function finish(winner){
+ game.over=true;selected=null;awaitingReady=false;
+ $("handover").classList.remove("show");
+ render();
+ showModal("🏆 انتهت المبارزة","الفائز هو اللاعب "+(winner+1)+"! أحسنت في إدارة بطاقاتك وطاقتك.",[
+  {label:"مباراة جديدة",cls:"gold",fn:()=>{closeModal();startGame()}},
+  {label:"إغلاق",cls:"",fn:closeModal}
+ ]);
+}
+function render(){
+ if(!game)return;
+ $("round").textContent=game.round;
+ for(let i=0;i<2;i++){
+  const p=game.players[i];
+  $("hp"+i).textContent=p.hp;
+  $("shield"+i).textContent=p.shield;
+  $("energy"+i).textContent=p.energy+"/"+p.maxEnergy;
+  $("hpbar"+i).style.width=(p.hp/30*100)+"%";
+  $("status"+i).textContent=game.over?"انتهت المباراة":(game.turn===i?(awaitingReady?"بانتظار تسليم الجهاز":"دورك الآن"):"ينتظر دوره");
+  $("panel"+i).classList.toggle("active",game.turn===i&&!game.over&&!awaitingReady);
+ }
+ $("handCount").textContent=active().hand.length;
+ $("selectedName").textContent=selected===null?"لا شيء":cardById(active().hand[selected]).name;
+ $("battleMsg").innerHTML=game.over?"انتهت المباراة":awaitingReady?
+  "تسليم الجهاز إلى <strong>اللاعب "+(game.turn+1)+"</strong>":
+  "دور <strong>اللاعب "+(game.turn+1)+"</strong> — اختر بطاقة للعبها.";
+ $("playBtn").disabled=game.over||awaitingReady||selected===null;
+ $("endBtn").disabled=game.over||awaitingReady;
+ $("drawBtn").disabled=game.over||awaitingReady||active().energy<1;
+ renderHand();
+ $("log").innerHTML=game.log.map(x=>"<div>"+escapeHtml(x)+"</div>").join("");
+}
+function escapeHtml(s){
+ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function renderHand(){
+ const box=$("hand");box.innerHTML="";
+ if(awaitingReady||game.over){
+  box.innerHTML='<div class="empty" style="grid-column:1/-1">البطاقات مخفية حتى يبدأ اللاعب التالي دوره.</div>';
+  return;
+ }
+ const p=active();
+ if(!p.hand.length){box.innerHTML='<div class="empty" style="grid-column:1/-1">لا توجد بطاقات في يدك. اسحب بطاقة أو أنهِ دورك.</div>';return}
+ p.hand.forEach((id,i)=>{
+  const c=cardById(id);
+  const el=document.createElement("div");
+  el.className="card"+(selected===i?" selected":"");
+  el.style.setProperty("--rarity",c.color);
+  el.innerHTML=`
+   <div class="art" style="--c1:${c.c1};--c2:${c.c2}">
+    <div class="cost">${c.cost}</div>
+    <div class="rarity">${c.rarity}</div>
+    <div class="character">${c.emoji}</div>
+   </div>
+   <div class="cardInfo">
+    <div class="cardName">${c.name}</div>
+    <div class="cardType">${c.type}</div>
+    <div class="desc">${c.desc}</div>
+    <div class="cardStats">
+     <span class="attack">⚔ ${c.atk||0}</span>
+     <span class="defense">🛡 ${c.def||0}</span>
+     <span>♥ ${c.heal||0}</span>
+    </div>
+   </div>`;
+  el.addEventListener("click",()=>{
+   if(game.over||awaitingReady)return;
+   selected=(selected===i?null:i);render();
   });
-
-  const player=state.players[state.current];
-  $("turnTitle").textContent="دور "+player.name;
-  $("turnDescription").textContent=`لديك ${player.energy} من ${player.maxEnergy} طاقة. العب بطاقاتك أو أنهِ دورك.`;
-  $("endTurnBtn").disabled=state.phase!=="playing";
-  $("logList").innerHTML=state.logs.slice(-6).map(m=>`<p>${escapeHTML(m)}</p>`).join("");
+  box.appendChild(el);
+ });
 }
-function showResult() {
-  const winner=state.players[state.winner];
-  $("resultTitle").textContent=`فوز ${winner.name}!`;
-  $("resultDescription").textContent=`انتهت المبارزة وبقي للفائز ${winner.hp} نقطة صحة.`;
-  $("resultRounds").textContent=state.round;
-  $("resultHealth").textContent=winner.hp;
-  $("handoff").classList.add("hidden");
-  showScreen("resultScreen");
+function showModal(title,text,buttons){
+ $("modalTitle").textContent=title;$("modalText").textContent=text;
+ const box=$("modalBtns");box.innerHTML="";
+ buttons.forEach(b=>{
+  const btn=document.createElement("button");btn.className="btn "+(b.cls||"");
+  btn.textContent=b.label;btn.onclick=b.fn;box.appendChild(btn);
+ });
+ $("modal").classList.add("show");
 }
-function backHome() {
-  if(state) save();
-  $("handoff").classList.add("hidden");
-  showScreen("homeScreen");
+function closeModal(){$("modal").classList.remove("show")}
+function showRules(){
+ showModal("📘 قواعد ساحة النخبة",
+ "الهدف: خفض صحة الخصم إلى الصفر. كل لاعب يبدأ بـ30 صحة وخمس بطاقات. تستخدم البطاقات الطاقة المكتوبة عليها. في بداية دورك تستعيد الطاقة وتُسحب بطاقة. الدرع يمتص الضرر أولًا، إلا أن البطاقات التي تخترق الدرع تتجاوز هذه الحماية. السم والحرق يسببان ضررًا في بداية دور اللاعب المصاب. التجميد يخفض طاقته في دوره التالي. هذه اللعبة محلية على جهاز واحد، لذلك سلّم الجهاز عند ظهور شاشة التسليم.",
+ [{label:"فهمت",cls:"gold",fn:closeModal}]);
 }
-
-$("startBtn").addEventListener("click",startGame);
-$("againBtn").addEventListener("click",startGame);
-$("endTurnBtn").addEventListener("click",finishTurn);
-$("readyBtn").addEventListener("click",readyNextTurn);
-$("homeBtn").addEventListener("click",backHome);
-$("resultHomeBtn").addEventListener("click",backHome);
-
-$("restartBtn").addEventListener("click",()=>{
-  if(confirm("بدء مباراة جديدة؟ ستفقد المباراة الحالية.")) startGame();
+$("playBtn").addEventListener("click",playSelected);
+$("drawBtn").addEventListener("click",drawCard);
+$("endBtn").addEventListener("click",endTurn);
+$("readyBtn").addEventListener("click",ready);
+$("rulesBtn").addEventListener("click",showRules);
+$("restartTop").addEventListener("click",()=>{
+ showModal("إعادة المباراة؟","سيتم بدء مباراة جديدة وإعادة صحة اللاعبين والبطاقات.",[
+  {label:"ابدأ من جديد",cls:"gold",fn:()=>{closeModal();startGame()}},
+  {label:"إلغاء",fn:closeModal}
+ ]);
 });
-
-$("rulesBtn").addEventListener("click",()=>$("rules").classList.remove("hidden"));
-$("closeRules").addEventListener("click",()=>{
-  $("rules").classList.add("hidden");
-  startGame();
-});
-$("rules").addEventListener("click",e=>{
-  if(e.target===$("rules")) $("rules").classList.add("hidden");
-});
-window.addEventListener("beforeunload",save);
-
-// استعادة حالة الجلسة إذا أعاد المتصفح تحميل الصفحة.
-state=load();
-if(state && state.phase==="playing") {
-  showScreen("gameScreen");
-  render();
-} else if(state && state.phase==="handoff") {
-  showScreen("gameScreen");
-  render();
-  $("nextPlayerName").textContent=state.players[state.handoffTo]?.name||"اللاعب التالي";
-  $("handoff").classList.remove("hidden");
-} else if(state && state.phase==="finished") {
-  showResult();
-} else {
-  showScreen("homeScreen");
-}
-})();
+$("clearLog").addEventListener("click",()=>{game.log=[];render()});
+startGame();
 </script>
 </body>
 </html>
